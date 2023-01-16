@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
 
+
+import java.util.List;
 import java.util.Collection;
+
 
 @RestController
 @RequestMapping("faculties")
@@ -47,5 +50,10 @@ public class FacultyController {
     @DeleteMapping("{id}") //DELETE http://localhost:8080/faculties/23 (id=23)
     public Faculty deleteFaculty(@PathVariable long id) {
         return facultyService.deleteFaculty(id);
+    }
+
+    @GetMapping("/filter/{color}")
+    public List<Faculty> getColor(@PathVariable String color) {
+        return facultyService.getColor(color);
     }
 }
