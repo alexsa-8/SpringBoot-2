@@ -20,7 +20,6 @@ public class StudentController {
 
     @GetMapping("{id}") //GET http://localhost:8080/students/23 (id=23)
     public ResponseEntity<Student> getStudentInfo(@PathVariable Long id) {
-
         Student student = studentService.findStudent(id);
         if (student == null) {
             return ResponseEntity.notFound().build();

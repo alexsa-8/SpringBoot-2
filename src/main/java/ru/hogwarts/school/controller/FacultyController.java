@@ -48,12 +48,14 @@ public class FacultyController {
     }
 
     @DeleteMapping("{id}") //DELETE http://localhost:8080/faculties/23 (id=23)
-    public Faculty deleteFaculty(@PathVariable long id) {
-        return facultyService.deleteFaculty(id);
+    public ResponseEntity deleteFaculty(@PathVariable long id) {
+        facultyService.deleteFaculty(id);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/filter/{color}")
+    @GetMapping("/filter/{color}")  //GET http://localhost:8080/faculties/filter/15 (age=15)
     public List<Faculty> getColor(@PathVariable String color) {
+
         return facultyService.getColor(color);
     }
 }
