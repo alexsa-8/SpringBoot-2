@@ -56,6 +56,6 @@ public class FacultyController {
     @GetMapping("/filter/{color}")  //GET http://localhost:8080/faculties/filter/15 (age=15)
     public List<Faculty> getColor(@PathVariable String color) {
 
-        return facultyService.getColor(color);
+        return facultyService.findByColorEquals(color);
     }
 }

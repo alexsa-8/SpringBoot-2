@@ -34,7 +34,7 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public List<Student> getAge(int age) {
+    public List<Student> findByAgeEquals(int age) {
         return studentRepository.findAll()
                 .stream()
                 .filter(e->e.getAge() >= age)
