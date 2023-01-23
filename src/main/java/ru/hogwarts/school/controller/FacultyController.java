@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.service.FacultyService;
 
-
 import java.util.List;
-import java.util.Collection;
-
 
 @RestController
 @RequestMapping("faculties")
@@ -17,8 +14,10 @@ public class FacultyController {
     private final FacultyService facultyService;
 
     public FacultyController(FacultyService facultyService) {
+
         this.facultyService = facultyService;
     }
+
     @GetMapping("{id}")  //GET http://localhost:8080/faculties/23 (id=23)
     public ResponseEntity<Faculty> getFacultyInfo(@PathVariable Long id) {
         Faculty faculty = facultyService.findFaculty(id);
@@ -29,7 +28,18 @@ public class FacultyController {
     }
 
     @GetMapping  //GET http://localhost:8080/faculties
-    public ResponseEntity<Collection<Faculty>> getAllFaculties() {
+    public ResponseEntity findFaculties(@RequestParam String name,
+                                        @RequestParam String color,
+                                        @RequestParam String namePart) {
+        if (name != null && !name.isBlank()) {
+            return ResponseEntity.ok(facultyService.findByName(name));
+        }
+        if (color != null && !color.isBlank()) {
+            return ResponseEntity.ok(facultyService.findByColorEquals(color));
+        }
+        if (namePart != null && !namePart.isBlank()) {
+            return ResponseEntity.ok(facultyService.findByNamePart(namePart));
+        }
         return ResponseEntity.ok(facultyService.getAllFaculty());
     }
 
@@ -54,8 +64,8 @@ public class FacultyController {
     }
 
     @GetMapping("/filter/{color}")  //GET http://localhost:8080/faculties/filter/15 (age=15)
-    public List<Faculty> getColor(@PathVariable String color) {
+    public ResponseEntity<List<Faculty>> getColor(@PathVariable String color) {
 
-        return facultyService.findByColorEquals(color);
+        return ResponseEntity.ok(facultyService.findByColorEquals(color));
     }
 }
