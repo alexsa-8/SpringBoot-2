@@ -12,19 +12,26 @@ public class FacultyService {
     private final FacultyRepository facultyRepository;
 
     public FacultyService(FacultyRepository facultyRepository) {
+
         this.facultyRepository = facultyRepository;
     }
 
     public Faculty createFaculty(Faculty faculty) {
+
         return facultyRepository.save(faculty);
     }
 
     public Faculty findFaculty(Long id) {
-        return facultyRepository.findById(id).get();
+
+        return facultyRepository.findById(id).orElse(null);
     }
 
     public Faculty editFaculty(Faculty faculty) {
-        return facultyRepository.save(faculty);
+
+        if (facultyRepository.existsById(faculty.getId())) {
+            return facultyRepository.save(faculty);
+        }
+        return null;
     }
 
     public void deleteFaculty(long id) {
@@ -32,6 +39,7 @@ public class FacultyService {
     }
 
     public Collection<Faculty> getAllFaculty() {
+
         return facultyRepository.findAll();
     }
 
@@ -43,6 +51,7 @@ public class FacultyService {
     }
 
     public Faculty findByName(String name) {
+
         return facultyRepository.findByNameIgnoreCase(name);
     }
 
@@ -50,7 +59,7 @@ public class FacultyService {
         return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
 
-    public Collection<Faculty> findByNamePart(String part) {
-        return facultyRepository.findAllByNameContainsIgnoreCase(part);
+    public Collection<Faculty> getStudents(Long id) {
+        return facultyRepository.findFacultyByStudentId(id);
     }
 }

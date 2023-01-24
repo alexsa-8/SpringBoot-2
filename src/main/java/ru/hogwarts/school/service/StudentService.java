@@ -10,7 +10,6 @@ import java.util.List;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-
     public StudentService(StudentRepository studentRepository) {
 
         this.studentRepository = studentRepository;
@@ -22,6 +21,7 @@ public class StudentService {
     }
 
     public Student findStudent(Long id) {
+
         return studentRepository.findById(id).orElse(null);//get();
     }
 
@@ -33,6 +33,7 @@ public class StudentService {
     }
 
     public void deleteStudent(long id) {
+
         studentRepository.deleteById(id);
     }
 
@@ -57,7 +58,8 @@ public class StudentService {
         return studentRepository.findByAgeBetween(ageMin, ageMax);
     }
 
-    public Collection<Student> findByNamePart(String part) {
-        return studentRepository.findAllByNameContainsIgnoreCase(part);
+    public Collection<Student> getFaculty(Long id) {
+
+        return studentRepository.findStudentsByFacultyId(id);
     }
 }

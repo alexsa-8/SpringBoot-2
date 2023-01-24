@@ -10,8 +10,8 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository <Student, Long> {
     List<Student> findByAgeEquals(int age);
     Student findByNameIgnoreCase(String name);
-    Collection<Student> findByAgeBetween(int ageMin, int ageMax); //ContainsIgnoreCase-присоединяется к названию метода если переменая String
-    Collection<Student> findAllByNameContainsIgnoreCase(String part);
+    Collection<Student> findByAgeBetween(int ageMin, int ageMax); //ContainsIgnoreCase-присоединяется к названию метода если переменная String
+    Collection<Student> findStudentsByFacultyId(Long id);
     //Collection<Student> findStudentByNameIgnoreCaseAndAge(String name, int age);//поиск студента по имени (с большой или маленькой буквы) или сколько лет
     //Collection<Student> findStudentByNameOrAge(String name, int age);//поиск по имени или годам
 }
