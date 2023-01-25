@@ -1,6 +1,5 @@
 package ru.hogwarts.school.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
@@ -46,6 +45,7 @@ public class StudentController {
 
     @PostMapping  //POST http://localhost:8080/students
     public Student createStudent(@RequestBody Student student) {
+
         return studentService.createStudent(student);
     }
 
@@ -53,7 +53,8 @@ public class StudentController {
     public ResponseEntity<Student> editStudent(@RequestBody Student student) {
         Student foundStudent = studentService.editStudent(student);
         if (foundStudent == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            //return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundStudent);
     }
@@ -66,7 +67,6 @@ public class StudentController {
 
     @GetMapping("/filter/{age}")  //GET http://localhost:8080/students/filter/15 (age=15)
     public ResponseEntity<List<Student>> getAge(@PathVariable int age) {
-
         return ResponseEntity.ok(studentService.findByAgeEquals(age));
     }
     @GetMapping("/ageBetween")
@@ -76,7 +76,8 @@ public class StudentController {
     }
 
     @GetMapping("/faculty/{id}")
-    public ResponseEntity<Collection<Student>> getFaculty(@PathVariable Long id) {
+    public ResponseEntity<Collection<Student>> getFaculty(@PathVariable long id) {
+        Collection<Student> students = studentService.getFaculty(id);
         return ResponseEntity.ok(studentService.getFaculty(id));
     }
 }

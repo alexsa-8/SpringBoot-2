@@ -29,9 +29,9 @@ public class FacultyController {
     }
 
     @GetMapping  //GET http://localhost:8080/faculties
-    public ResponseEntity findFaculties(@RequestParam String name,
-                                        @RequestParam String color,
-                                        @RequestParam Long id) {
+    public ResponseEntity findFaculties(@RequestParam(required = false) String name,
+                                        @RequestParam(required = false) String color,
+                                        @RequestParam(required = false) Long id) {
         if (name != null && !name.isBlank()) {
             return ResponseEntity.ok(facultyService.findByName(name));
         }
@@ -39,7 +39,7 @@ public class FacultyController {
             return ResponseEntity.ok(facultyService.findByColorEquals(color));
         }
         if (id != null) {
-            return ResponseEntity.ok(facultyService.getStudents(id));
+            return ResponseEntity.ok(facultyService.getFacultyByStudentId(id));
         }
         return ResponseEntity.ok(facultyService.getAllFaculty());
     }
@@ -70,14 +70,20 @@ public class FacultyController {
 
         return ResponseEntity.ok(facultyService.findByColorEquals(color));
     }
+
     @GetMapping("colorOrName")
     public ResponseEntity<Collection<Faculty>> getByNameOrColor(@RequestParam(required = false) String name,
                                                                 @RequestParam(required = false) String color) {
         return ResponseEntity.ok(facultyService.getFacultyByNameOrColor(name, color));
     }
 
+    //    @GetMapping("students/{id}")
+//    public ResponseEntity<Collection<Faculty>> getFacultyByStudentId(@PathVariable Long id) {
+//        return ResponseEntity.ok(facultyService.getFacultyByStudentId(id));
+//    }
     @GetMapping("students/{id}")
-    public ResponseEntity<Collection<Faculty>> getStudents(@PathVariable Long id) {
-        return ResponseEntity.ok(facultyService.getStudents(id));
+    public ResponseEntity<Faculty> getFacultyId(@PathVariable long id) {
+        Faculty faculty = (Faculty) facultyService.getFacultyByStudentId(id);
+        return ResponseEntity.ok(faculty);
     }
 }
