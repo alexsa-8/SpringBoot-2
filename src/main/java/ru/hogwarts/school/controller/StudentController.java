@@ -77,7 +77,7 @@ public class StudentController {
     }
 
     @GetMapping("/faculty/{studentId}")
-    public ResponseEntity<Faculty> findFaculty(@PathVariable long studentId) {
-        return ResponseEntity.ok(studentService.findById(studentId).getFaculty());
+    public ResponseEntity<Faculty> findFaculty(@PathVariable Long studentId) {
+        return ResponseEntity.ok(studentService.findStudent(studentId).getFaculty());
     }
 }
