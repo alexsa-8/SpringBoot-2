@@ -10,7 +10,7 @@
     </parent>
     <groupId>ru.hogwarts</groupId>
     <artifactId>school</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>SpringBoot-2</name>
     <description>SpringBoot-2</description>
     <properties>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.6.3</version>
+            <version>1.6.14</version>
         </dependency>
 
         <dependency>
