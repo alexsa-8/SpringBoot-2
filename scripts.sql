@@ -1,24 +1,24 @@
-select * from students;
+select * from student;
 
-select * from students where age > 15 and age < 20;
+select * from student where age > 15 and age < 20;
 
-select name from students;
+select name from student;
 
-select * from students where name like '%i%';
+select * from student where name like '%i%';
 
-select * from students where age < id;
+select * from student where age < id;
 
-select * from students order by age;
+select * from student order by age;
 
-select * from students, faculty
-where students.faculty_id = faculty.id
+select * from student, faculty
+where student.faculty_id = faculty.id
 and faculty.id = 1;
 
-select s.id, s.name, s.age from students as s, faculty as f
+select s.id, s.name, s.age from student as s, faculty as f
 where s.faculty_id = f.id
 and f.id = 1;
 
-select s.* from students as s, faculty as f
+select s.* from student as s, faculty as f
 where s.faculty_id = f.id
 and f.id = 1;
 
