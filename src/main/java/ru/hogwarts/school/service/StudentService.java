@@ -33,7 +33,7 @@ public class StudentService {
         return null;
     }
 
-    public void deleteStudent(long id) {
+    public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
     }
 
