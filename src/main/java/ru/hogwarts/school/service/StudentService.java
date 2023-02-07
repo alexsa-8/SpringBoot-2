@@ -37,7 +37,7 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public Collection<Student> getAllStudents() {
+    public Collection<Student> getAll() {
         return studentRepository.findAll();
     }
 
@@ -49,6 +49,7 @@ public class StudentService {
     }
 
     public Student findByName(String name) {
+
         return studentRepository.findByNameIgnoreCase(name);
     }
 
@@ -56,8 +57,19 @@ public class StudentService {
         return studentRepository.findByAgeBetween(ageMin, ageMax);
     }
 
-    public Student findById(long studentId) {
+    public Collection<Student> findById(long studentId) {
 
         return studentRepository.findStudentsByFacultyId(studentId);
+    }
+    public Integer getAllStudents() {
+        return studentRepository.getAllStudents();
+    }
+
+    public Double getAverageAge() {
+        return studentRepository.getAverageAge( );
+    }
+
+    public List<Student> getLastStudents() {
+        return studentRepository.getLastStudent();
     }
 }

@@ -28,20 +28,9 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @GetMapping  //GET http://localhost:8080/students
-    public ResponseEntity findStudents(@RequestParam(required = false) String name,
-                                       @RequestParam(required = false) int age,
-                                       @RequestParam(required = false) Long id) {
-        if (name != null && !name.isBlank()) {
-            return ResponseEntity.ok(studentService.findByName(name));
-        }
-        if (age != 0) {
-            return ResponseEntity.ok(studentService.findByAgeEquals(age));
-        }
-        if (id != null) {
-            return ResponseEntity.ok(studentService.findById(id));
-        }
-        return ResponseEntity.ok(studentService.getAllStudents());
+    @GetMapping
+    public ResponseEntity<Collection<Student>> getAll() {
+        return ResponseEntity.ok(studentService.getAll());
     }
 
     @PostMapping  //POST http://localhost:8080/students
@@ -78,5 +67,20 @@ public class StudentController {
     @GetMapping("/faculty/{studentId}")
     public ResponseEntity<Faculty> findFaculty(@PathVariable Long studentId) {
         return ResponseEntity.ok(studentService.findStudent(studentId).getFaculty());
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Integer> getAllStudents() {
+        return ResponseEntity.ok(studentService.getAllStudents());
+    }
+
+    @GetMapping("/average-age")
+    public ResponseEntity<Double> getAverageAge() {
+        return ResponseEntity.ok(studentService.getAverageAge());
+    }
+
+    @GetMapping("/last-stugents")
+    public ResponseEntity<List<Student>> getLastStudents() {
+        return ResponseEntity.ok(studentService.getLastStudents());
     }
 }

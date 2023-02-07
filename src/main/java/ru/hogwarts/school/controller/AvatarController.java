@@ -15,12 +15,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 public class AvatarController {
     private final AvatarService avatarService;
 
     public AvatarController(AvatarService avatarService) {
+
         this.avatarService = avatarService;
     }
 
@@ -62,5 +64,11 @@ public class AvatarController {
     @DeleteMapping("{id}")
     public void deleteAvatar(@PathVariable Long id) {
         avatarService.deleteAvatar(id);
+    }
+
+    @GetMapping("all")
+    public ResponseEntity<List<Avatar>> getAll(@RequestParam("page") Integer pageNum,
+                                               @RequestParam("size") Integer pageSize) {
+        return ResponseEntity.ok(avatarService.getAllAvatars(pageNum, pageSize));
     }
 }
