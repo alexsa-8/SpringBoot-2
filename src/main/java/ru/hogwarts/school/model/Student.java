@@ -6,10 +6,11 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "students")
 public class Student {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String name;
     private int age;
 

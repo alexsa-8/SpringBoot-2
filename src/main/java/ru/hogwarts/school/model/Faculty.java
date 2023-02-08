@@ -2,14 +2,12 @@ package ru.hogwarts.school.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Table(name = "faculty")
 public class Faculty {
     @Id
     @GeneratedValue
