@@ -14,13 +14,13 @@ public interface StudentRepository extends JpaRepository <Student, Long> {
     Student findByNameIgnoreCase(String name);
     Collection<Student> findByAgeBetween(int ageMin, int ageMax); //ContainsIgnoreCase-присоединяется к названию метода если переменная String
     Collection<Student> findStudentsByFacultyId(Long id);
-    @Query(value = "SELECT COUNT(*) as count FROM student", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) as count FROM students", nativeQuery = true)
     Integer getAllStudents();
 
-    @Query(value = "SELECT AVG(age) as count FROM student", nativeQuery = true)
+    @Query(value = "SELECT AVG(age) as count FROM students", nativeQuery = true)
     Double getAverageAge();
 
-    @Query(value = "SELECT * FROM student ORDER BY  id DESC LIMIT 5", nativeQuery = true)
+    @Query(value = "SELECT * FROM students ORDER BY  id DESC LIMIT 5", nativeQuery = true)
     List<Student> getLastStudent();
     //Collection<Student> findStudentByNameIgnoreCaseAndAge(String name, int age);//поиск студента по имени (с большой или маленькой буквы) или сколько лет
     //Collection<Student> findStudentByNameOrAge(String name, int age);//поиск по имени или годам
