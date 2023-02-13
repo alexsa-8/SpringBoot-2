@@ -1,4 +1,4 @@
 -- liquibase formatted sql
 
 -- changeset Alex:1
-CREATE INDEX student_name_index ON students (name);
+CREATE INDEX IF NOT EXISTS student_name_index ON students (name);
