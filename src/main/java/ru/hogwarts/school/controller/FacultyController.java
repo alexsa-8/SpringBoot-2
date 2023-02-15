@@ -30,18 +30,7 @@ public class FacultyController {
     }
 
     @GetMapping  //GET http://localhost:8080/faculties
-    public ResponseEntity findFaculties(@RequestParam(required = false) String name,
-                                        @RequestParam(required = false) String color,
-                                        @RequestParam(required = false) Long id) {
-        if (name != null && !name.isBlank()) {
-            return ResponseEntity.ok(facultyService.findByName(name));
-        }
-        if (color != null && !color.isBlank()) {
-            return ResponseEntity.ok(facultyService.findByColorEquals(color));
-        }
-        if (id != null) {
-            return ResponseEntity.ok(facultyService.findById(id));
-        }
+    public ResponseEntity findFaculties() {
         return ResponseEntity.ok(facultyService.getAllFaculty());
     }
 
@@ -78,12 +67,13 @@ public class FacultyController {
         return ResponseEntity.ok(facultyService.getFacultyByNameOrColor(name, color));
     }
 
-    //    @GetMapping("students/{id}")
-//    public ResponseEntity<Collection<Faculty>> getFacultyByStudentId(@PathVariable Long id) {
-//        return ResponseEntity.ok(facultyService.getFacultyByStudentId(id));
-//    }
     @GetMapping("students/{facultyId}")
     public ResponseEntity<Collection<Student>> findStudents(@PathVariable Long facultyId) {
         return ResponseEntity.ok(facultyService.findFaculty(facultyId).getStudent());
+    }
+
+    @GetMapping("/longest-faculty-name")
+    public ResponseEntity<String> longestFacultyName(){
+        return ResponseEntity.ok(facultyService.longestFacultyName());
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.hogwarts.school.repository.InfoPortService;
 
 @Service
-@Profile("production")
+@Profile("!production")
 public class InfoPortServiceProduction implements InfoPortService {
     @Value("${server.port}")
     private Integer port;

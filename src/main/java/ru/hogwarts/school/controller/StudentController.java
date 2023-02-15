@@ -78,6 +78,7 @@ public class StudentController {
 
     @GetMapping("/average-age")
     public ResponseEntity<Double> getAverageAge() {
+
         return ResponseEntity.ok(studentService.getAverageAge());
     }
 
@@ -90,5 +91,15 @@ public class StudentController {
     public ResponseEntity<List<Student>> getStudentsByName(@PathVariable("name") String name){
         List<Student> students = Collections.singletonList(studentService.findByName(name));
         return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/students-names-on-D")
+    public ResponseEntity<List<String>> getStudentsByNameOnD(){
+        return ResponseEntity.ok(studentService.getStudentsByNameOnD());
+    }
+
+    @GetMapping("/less-time")
+    public Integer lessTime(){
+        return studentService.lessTime();
     }
 }
