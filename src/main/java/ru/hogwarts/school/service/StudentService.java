@@ -14,7 +14,8 @@ import java.util.stream.IntStream;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
-
+    public final Object flag = new Object();
+    int count = 0;
     public StudentService(StudentRepository studentRepository) {
 
         this.studentRepository = studentRepository;
@@ -112,5 +113,61 @@ public class StudentService {
         long lessTime = System.currentTimeMillis() - start;
         logger.info("Request for time: " + lessTime + "ms");
         return finish;
+    }
+    public void streamWithStudentNames() {
+        logger.info("Request to the receiving stream");
+        List<String> studentList = getList();
+
+        System.out.println(Thread.currentThread().getName() + " " + studentList.get(0));
+        System.out.println(Thread.currentThread().getName() + " " + studentList.get(1));
+
+        Thread thread = new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " " + studentList.get(2));
+            System.out.println(Thread.currentThread().getName() + " " + studentList.get(3));
+        });
+
+        Thread thread1 = new Thread(() -> {
+            System.out.println(Thread.currentThread().getName() + " " + studentList.get(4));
+            System.out.println(Thread.currentThread().getName() + " " + studentList.get(5));
+        });
+        thread.start();
+        thread1.start();
+    }
+
+
+    public void streamOfStudentNames() {
+        logger.info("Synchronized stream of student names");
+        List<String> studentList = getList();
+
+        printStudentName(studentList.get(0));
+        printStudentName(studentList.get(1));
+
+        Thread thread = new Thread(() -> {
+            printStudentName(studentList.get(2));
+            printStudentName(studentList.get(3));
+        });
+
+        Thread thread1 = new Thread(() -> {
+            printStudentName(studentList.get(4));
+            printStudentName(studentList.get(5));
+        });
+
+        thread.start();
+        thread1.start();
+    }
+
+    public void printStudentName(String student) {
+        synchronized (flag) {
+            System.out.println(Thread.currentThread().getName() + ": " + student + " - count: " + count);
+            count++;
+        }
+    }
+
+    private List<String> getList() {
+        return studentRepository
+                .findAll()
+                .stream()
+                .map(Student::getName)
+                .collect(Collectors.toList());
     }
 }

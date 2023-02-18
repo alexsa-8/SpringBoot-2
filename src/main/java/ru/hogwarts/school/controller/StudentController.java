@@ -102,4 +102,14 @@ public class StudentController {
     public Integer lessTime(){
         return studentService.lessTime();
     }
+
+    @GetMapping("/parallel-streams")
+    public void parallelListOfStudents(){
+        studentService.streamWithStudentNames();
+    }
+    @GetMapping("/synchronized-parallel-streams")
+    public void synchronizedParallelListOfStudents(){
+        studentService.streamOfStudentNames();
+
+    }
 }
