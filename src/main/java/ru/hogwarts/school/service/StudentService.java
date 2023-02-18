@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 @Service
 public class StudentService {
@@ -103,12 +103,14 @@ public class StudentService {
 
     public Integer lessTime() {
         long start = System.currentTimeMillis();
-        int sum = Stream.iterate(1, a -> a + 1)
-                .limit(1_000_000)
-                .mapToInt(Integer::intValue)
-                .sum();
+//        int sum = Stream.iterate(1, a -> a + 1)
+//                .limit(1_000_000)
+//                .mapToInt(Integer::intValue)
+//                .sum();
+        int starting = 1_000_000;
+        int finish = IntStream.range(1, starting+1).sum();
         long lessTime = System.currentTimeMillis() - start;
         logger.info("Request for time: " + lessTime + "ms");
-        return sum;
+        return finish;
     }
 }
